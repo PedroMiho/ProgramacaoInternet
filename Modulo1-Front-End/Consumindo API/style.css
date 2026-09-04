@@ -1,0 +1,479 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #dbeafe,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #e0e7ff,
+            transparent 35%
+        ),
+        #f8fafc;
+
+    color: #1e293b;
+}
+
+
+/* =========================
+   CARD PRINCIPAL
+========================= */
+
+.cep-card {
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10),
+        0 5px 15px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.header {
+    padding: 25px 30px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #4f46e5
+        );
+
+    color: white;
+}
+
+
+/* Ícone */
+
+.header-icon {
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    font-size: 23px;
+}
+
+
+/* Título */
+
+.header h1 {
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+/* Descrição */
+
+.header p {
+    max-width: 500px;
+
+    margin: 6px auto 0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    opacity: 0.9;
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.content {
+    padding: 30px;
+}
+
+
+/* =========================
+   ÁREA DO CEP
+========================= */
+
+.cep-area {
+    margin-bottom: 30px;
+}
+
+
+/* Labels */
+
+.form-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #334155;
+}
+
+
+/* Campo CEP */
+
+.cep-input {
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 14px;
+
+    border: 2px solid #e2e8f0;
+
+    border-radius: 11px;
+
+    background: white;
+
+    transition: 0.2s;
+}
+
+
+/* Ícone */
+
+.cep-input > i {
+    color: #64748b;
+
+    font-size: 17px;
+}
+
+
+/* Input */
+
+.cep-input input {
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0 12px;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #1e293b;
+
+    font-size: 14px;
+}
+
+
+/* Foco */
+
+.cep-input:focus-within {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+
+/* Botão */
+
+.cep-input button {
+    height: 100%;
+
+    padding: 0 18px;
+
+    border: none;
+
+    border-radius: 0 9px 9px 0;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+/* Hover botão */
+
+.cep-input button:hover {
+    background: #1d4ed8;
+}
+
+
+/* Ícone botão */
+
+.cep-input button i {
+    margin-right: 5px;
+
+    color: white;
+}
+
+
+/* Texto auxiliar */
+
+.cep-area small {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 11px;
+
+    color: #94a3b8;
+}
+
+
+/* =========================
+   MENSAGEM DE ERRO
+========================= */
+
+#erro {
+    margin: 5px 0 0;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #dc2626;
+}
+
+
+/* =========================
+   ÁREA DO ENDEREÇO
+========================= */
+
+.address {
+    padding-top: 25px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+
+/* Título */
+
+.address-title {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+}
+
+
+/* Ícone */
+
+.address-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 17px;
+}
+
+
+/* Título */
+
+.address-title h2 {
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #1e293b;
+}
+
+
+/* Subtítulo */
+
+.address-title span {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 11px;
+
+    color: #64748b;
+}
+
+
+/* =========================
+   CAMPOS DO ENDEREÇO
+========================= */
+
+.input-group-custom {
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    transition: 0.2s;
+}
+
+
+/* Ícone */
+
+.input-group-custom > i {
+    margin-right: 9px;
+
+    color: #94a3b8;
+
+    font-size: 15px;
+}
+
+
+/* Input */
+
+.input-group-custom input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+
+/* Campos somente leitura */
+
+.input-group-custom.readonly {
+    background: #f8fafc;
+}
+
+
+/* Foco no número */
+
+.input-group-custom:focus-within {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.input-group-custom:focus-within > i {
+    color: #2563eb;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 576px) {
+
+    .container {
+        padding: 15px !important;
+    }
+
+
+    .cep-card {
+        border-radius: 18px;
+    }
+
+
+    .header {
+        padding: 22px 18px;
+    }
+
+
+    .header-icon {
+        width: 46px;
+        height: 46px;
+
+        font-size: 20px;
+    }
+
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+
+    .header p {
+        font-size: 12px;
+    }
+
+
+    .content {
+        padding: 25px 20px;
+    }
+
+
+    .cep-input button {
+        padding: 0 14px;
+    }
+
+
+    .cep-input button {
+        font-size: 0;
+    }
+
+
+    .cep-input button i {
+        margin: 0;
+
+        font-size: 17px;
+    }
+
+
+    .address-title span {
+        font-size: 10px;
+    }
+
+}
