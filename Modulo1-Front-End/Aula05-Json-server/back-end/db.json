@@ -1,0 +1,12 @@
+{
+    "produtos" : [
+        {
+            "id": 1,
+            "nome" : "notebook",
+            "categoria" : "computadores",
+            "preco" : 3499.99,
+            "estoque" : 12,
+            "descricao" : "notebook de estudos"
+        }
+    ]
+}
