@@ -1,12 +1,38 @@
 import api from "./api.js"
 
+let paginaAtual = 1
+let produtosPorPagina = 5
+
+const botaoAnterior = document.querySelector("#anterior")
+const numeroPagina = document.querySelector("#paginaAtual")
+const botaoProxima = document.querySelector("#proxima")
+
+botaoAnterior.addEventListener("click" , () => {
+    consulta.mostrarProdutos(paginaAtual - 1);
+})
+
+botaoProxima.addEventListener("click" , () => {
+    consulta.mostrarProdutos(paginaAtual + 1);
+})
+
 const consulta = {
-    async mostrarProdutos(){
+    async mostrarProdutos(paginaDesejada=paginaAtual){
+
+        //Evita novos cliques durante a requisição
+        botaoAnterior.disabled = true
+        botaoProxima.disabled = true
+
         try{
-            const produtos = await api.buscaProdutos()
+            const produtos = await api.buscaProdutos(paginaDesejada,produtosPorPagina)
             console.log(produtos);
-            verificaProdutos(produtos)
-            listarProdutos(produtos)
+            listarProdutos(produtos.data)
+            
+            paginaAtual=paginaDesejada
+            numeroPagina.textContent = paginaAtual
+            
+            botaoAnterior.disabled = paginaAtual === 1
+            botaoProxima.disabled = paginaAtual >= produtos.pages
+            
         }catch(erro){
             alert("deu ruim")
         }
@@ -16,7 +42,7 @@ const consulta = {
 function verificaProdutos(produtos){
     let produtoCadatrados = produtos.length
     let nenhumProduto = document.querySelector("#verificaProduto")
-
+    
     if (produtoCadatrados > 0){
         nenhumProduto.style.display = "none"
     } else {
@@ -26,10 +52,17 @@ function verificaProdutos(produtos){
 
 function listarProdutos(produtos){
     const tabela = document.querySelector("#mostrarProdutos")
+    verificaProdutos(produtos)
+
+    tabela.querySelectorAll(".linha-produto").forEach(linha => {
+        linha.remove()
+    })
+
 
     produtos.forEach(produto => {
 
         const tr = document.createElement("tr")
+        tr.classList.add("linha-produto")
 
         const tdProduto = document.createElement("td")
         const tdCategoria = document.createElement("td")
