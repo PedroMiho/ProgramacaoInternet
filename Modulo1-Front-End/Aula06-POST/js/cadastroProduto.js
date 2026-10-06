@@ -1,21 +1,21 @@
-    // Envia os dados do formulário para cadastrar um novo produto.
-export async function cadastrarProduto(produto){
-        const response = await fetch("http://localhost:3000/produtos", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(produto)
-        })
+import { atualizarListaAposCadastro } from "./consultasAPI.js"
 
-        if (!response.ok){
-            throw new Error("Erro ao cadastrar produto")
-        }
+// Envia os dados do formulário para cadastrar um novo produto.
+async function cadastrarProduto(produto){
+    const response = await fetch("http://localhost:3000/produtos", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(produto)
+    })
 
-        return await response.json()
+    if (!response.ok){
+        throw new Error("Erro ao cadastrar produto")
     }
 
-import { atualizarListaAposCadastro } from "./consultasAPI.js"
+    return await response.json()
+}
 
 // O submit também funciona quando o aluno pressiona Enter no formulário.
 const formulario = document.querySelector(".product-form")
