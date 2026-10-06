@@ -2,10 +2,20 @@ import api from "./api.js"
 
 let paginaAtual = 1
 let produtosPorPagina = 5
+let nomeBusca = ""
+let ultimaConsulta = 0
+let totalPaginas = 1
 
 const botaoAnterior = document.querySelector("#anterior")
 const numeroPagina = document.querySelector("#paginaAtual")
 const botaoProxima = document.querySelector("#proxima")
+const campoBusca = document.querySelector("#search")
+
+// Uma nova busca começa na primeira página.
+campoBusca.addEventListener("input", () => {
+    nomeBusca = campoBusca.value.trim()
+    consulta.mostrarProdutos(1)
+})
 
 botaoAnterior.addEventListener("click" , () => {
     consulta.mostrarProdutos(paginaAtual - 1);
@@ -18,12 +28,19 @@ botaoProxima.addEventListener("click" , () => {
 const consulta = {
     async mostrarProdutos(paginaDesejada=paginaAtual){
 
+        const numeroConsulta = ++ultimaConsulta
+
         //Evita novos cliques durante a requisição
         botaoAnterior.disabled = true
         botaoProxima.disabled = true
 
         try{
-            const produtos = await api.buscaProdutos(paginaDesejada,produtosPorPagina)
+            const produtos = await api.buscaProdutos(paginaDesejada,produtosPorPagina,nomeBusca)
+
+            // Ignora respostas antigas quando o usuário digita rapidamente.
+            if (numeroConsulta !== ultimaConsulta) return
+
+            totalPaginas = produtos.pages
             console.log(produtos);
             listarProdutos(produtos.data)
             
@@ -34,7 +51,10 @@ const consulta = {
             botaoProxima.disabled = paginaAtual >= produtos.pages
             
         }catch(erro){
-            alert("deu ruim")
+            if (numeroConsulta !== ultimaConsulta) return
+            alert("Não foi possível buscar os produtos. Verifique o JSON Server.")
+            botaoAnterior.disabled = paginaAtual === 1
+            botaoProxima.disabled = paginaAtual >= totalPaginas
         }
     }
 }
@@ -47,6 +67,12 @@ function verificaProdutos(produtos){
         nenhumProduto.style.display = "none"
     } else {
         nenhumProduto.style.display = "table-cell"
+        nenhumProduto.querySelector("h3").textContent = nomeBusca
+            ? "Nenhum produto encontrado"
+            : "Nenhum produto cadastrado"
+        nenhumProduto.querySelector("p").textContent = nomeBusca
+            ? "Tente buscar por outro nome."
+            : "Cadastre seu primeiro produto utilizando o formulário abaixo."
     }
 }
 
