@@ -22,7 +22,7 @@ Esta aula continua a Aula 05, mantendo a busca por nome e a paginação.
 
 Nome, categoria, preço e estoque são obrigatórios. Descrição é opcional. O botão fica desabilitado enquanto o cadastro está em andamento.
 
-O botão Excluir solicita confirmação e envia DELETE. O botão Editar permanece para uma aula futura.
+O botão Excluir solicita confirmação e envia DELETE. O botão Editar solicita os novos valores em caixas de diálogo e envia PUT.
 
 ## Organização dos arquivos
 
@@ -39,3 +39,9 @@ Todo o cadastro fica em `cadastroProduto.js`: validação, leitura dos campos, f
 - Após excluir, a tabela volta à primeira página mantendo a busca. Isso evita ficar em uma última página que deixou de existir.
 - Durante a operação, o botão fica desabilitado. Ao cancelar ou ocorrer erro, a listagem não é atualizada.
 - Não é necessário adicionar outra tag script ao HTML: o módulo é carregado pelo import.
+
+## Atualização com PUT
+
+`js/atualizarProduto.js` reúne a leitura por prompts, validação, PUT e mensagens. Clique em Editar e altere os valores apresentados; Cancelar encerra sem salvar. Preço aceita ponto ou vírgula decimal. Estoque deve ser inteiro e não negativo. Categorias: computadores, perifericos, audio ou gamer.
+
+A função `editarProduto()` é exportada para a listagem; `atualizarProduto()` é interna ao mesmo arquivo, sem export. O PUT envia os dados do produto para `/produtos/{id}`. Após sucesso, a tabela volta à primeira página mantendo a busca. Ao alterar o nome, o produto pode deixar de corresponder ao filtro atual.
