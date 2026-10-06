@@ -1,4 +1,5 @@
 import api from "./api.js"
+import { editarProduto } from "./atualizarProduto.js"
 import { excluirProduto } from "./excluirProduto.js"
 
 let paginaAtual = 1
@@ -109,7 +110,18 @@ function listarProdutos(produtos){
         botaoEditar.textContent = "Editar"
 
         botaoEditar.addEventListener("click" , async () => {
-            await editarProduto(produto)
+            if (botaoEditar.disabled) return
+            botaoEditar.disabled = true
+
+            try {
+                const atualizou = await editarProduto(produto)
+                if (atualizou){
+                    // Mantém a busca, que pode deixar de encontrar o novo nome.
+                    await consulta.mostrarProdutos(1)
+                }
+            } finally {
+                botaoEditar.disabled = false
+            }
         })
         
         const botaoExcluir = document.createElement("button")
