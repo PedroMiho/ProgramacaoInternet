@@ -22,7 +22,7 @@ Esta aula continua a Aula 05, mantendo a busca por nome e a paginação.
 
 Nome, categoria, preço e estoque são obrigatórios. Descrição é opcional. O botão fica desabilitado enquanto o cadastro está em andamento.
 
-O botão Excluir solicita confirmação e envia DELETE. O botão Editar solicita os novos valores em caixas de diálogo e envia PUT.
+O botão Excluir solicita confirmação e envia DELETE. O botão Editar preenche o formulário inferior e muda o título para Editar produto.
 
 ## Organização dos arquivos
 
@@ -42,6 +42,6 @@ Todo o cadastro fica em `cadastroProduto.js`: validação, leitura dos campos, f
 
 ## Atualização com PUT
 
-`js/atualizarProduto.js` reúne a leitura por prompts, validação, PUT e mensagens. Clique em Editar e altere os valores apresentados; Cancelar encerra sem salvar. Preço aceita ponto ou vírgula decimal. Estoque deve ser inteiro e não negativo. Categorias: computadores, perifericos, audio ou gamer.
+Clique em Editar na tabela: o formulário inferior recebe os dados atuais, o título muda para Editar produto e o botão para Salvar alterações. O envio executa somente PUT, sem cadastrar outro produto. Cancelar edição limpa os campos e volta ao cadastro. Em caso de erro, os dados ficam no formulário para tentar novamente. Após sucesso, o formulário volta ao cadastro e a lista é atualizada com a busca limpa.
 
-A função `editarProduto()` é exportada para a listagem; `atualizarProduto()` é interna ao mesmo arquivo, sem export. O PUT envia os dados do produto para `/produtos/{id}`. Após sucesso, a tabela volta à primeira página mantendo a busca. Ao alterar o nome, o produto pode deixar de corresponder ao filtro atual.
+`atualizarProduto.js` mantém o código de edição e PUT separado. O cadastro ignora o submit quando o formulário está em modo de edição ou o evento já foi tratado.
