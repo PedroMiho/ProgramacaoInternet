@@ -1,21 +1,22 @@
 const api = {
-    async buscaProdutos(pagina=1,produtosPorPagina=6){
-        try {
-            const response = await fetch(`
-                http://localhost:3000/produtos?_page=${pagina}&_per_page=${produtosPorPagina}`)
-            
-                let responseJson = await response.json()
-                console.log(responseJson);
-                console.log(responseJson.data);
+    async buscaProdutos(pagina=1,produtosPorPagina=6,nome=""){
+        const parametros = new URLSearchParams({
+            _page: pagina,
+            _per_page: produtosPorPagina
+        })
 
-                return responseJson
-                
-                
+        // Busca por parte do nome, mantendo a paginação.
+        if (nome.trim() !== ""){
+            parametros.set("nome:contains", nome.trim())
+        }
 
+        const response = await fetch(`http://localhost:3000/produtos?${parametros}`)
+
+        if (!response.ok){
+            throw new Error("Erro ao buscar produtos")
         }
-        catch (error){
-            alert("erro ao buscar produto")
-        }
+
+        return await response.json()
     }
 }
 
