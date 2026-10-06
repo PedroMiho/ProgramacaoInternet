@@ -109,21 +109,10 @@ function listarProdutos(produtos){
         botaoEditar.classList.add("btn", "btn-warning", "btn-sm" , "me-2")
         botaoEditar.textContent = "Editar"
 
-        botaoEditar.addEventListener("click" , async () => {
-            if (botaoEditar.disabled) return
-            botaoEditar.disabled = true
-
-            try {
-                const atualizou = await editarProduto(produto)
-                if (atualizou){
-                    // Mantém a busca, que pode deixar de encontrar o novo nome.
-                    await consulta.mostrarProdutos(1)
-                }
-            } finally {
-                botaoEditar.disabled = false
-            }
+        botaoEditar.addEventListener("click", () => {
+            editarProduto(produto)
         })
-        
+
         const botaoExcluir = document.createElement("button")
         botaoExcluir.classList.add("btn", "btn-danger", "btn-sm")
         botaoExcluir.textContent = "Excluir"
