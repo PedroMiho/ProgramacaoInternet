@@ -1,68 +1,97 @@
-// Lê os novos valores e atualiza o produto pelo ID.
-export async function editarProduto(produto){
-    const nome = prompt("Nome do produto:", produto.nome)
-    if (nome === null) return false
+import { atualizarListaAposCadastro } from "./consultasAPI.js"
 
-    const categoria = prompt("Categoria: computadores, perifericos, audio ou gamer", produto.categoria)
-    if (categoria === null) return false
+const formulario = document.querySelector(".product-form")
+const botaoSalvar = formulario.querySelector('button[type="submit"]')
+const botaoLimpar = formulario.querySelector('button[type="reset"]')
+const titulo = document.querySelector(".form-header h2")
+const subtitulo = document.querySelector(".form-header p")
+const mensagem = document.querySelector("#mensagemCadastro")
+let produtoEmEdicao = null
 
-    const precoTexto = prompt("Preço do produto:", produto.preco)
-    if (precoTexto === null) return false
-
-    const estoqueTexto = prompt("Quantidade em estoque:", produto.estoque)
-    if (estoqueTexto === null) return false
-
-    const descricao = prompt("Descrição do produto:", produto.descricao ?? "")
-    if (descricao === null) return false
-
-    const preco = Number(precoTexto.trim().replace(",", "."))
-    const estoque = Number(estoqueTexto)
-    const categorias = ["computadores", "perifericos", "audio", "gamer"]
-
-    if (!nome.trim() || !categorias.includes(categoria.trim())){
-        alert("Informe um nome e uma categoria válida.")
-        return false
+export function editarProduto(produto){
+    if (botaoSalvar.disabled) return
+    produtoEmEdicao = { ...produto }
+    formulario.dataset.modo = "editar"
+    for (const campo of ["nome", "categoria", "preco", "estoque", "descricao"]){
+        document.querySelector("#" + campo).value = produto[campo] ?? ""
     }
-
-    if (!precoTexto.trim() || !Number.isFinite(preco) || preco < 0 ||
-        !estoqueTexto.trim() || !Number.isInteger(estoque) || estoque < 0){
-        alert("Informe um preço válido e um estoque inteiro, ambos maiores ou iguais a zero.")
-        return false
-    }
-
-    const produtoAtualizado = {
-        ...produto,
-        nome: nome.trim(),
-        categoria: categoria.trim(),
-        preco: preco,
-        estoque: estoque,
-        descricao: descricao.trim()
-    }
-
-    try {
-        await atualizarProduto(produto.id, produtoAtualizado)
-        alert("Produto atualizado com sucesso!")
-        return true
-    } catch (erro){
-        alert("Não foi possível atualizar. Verifique se o JSON Server está em execução.")
-        return false
-    }
+    titulo.textContent = "Editar produto"
+    subtitulo.textContent = "Altere os dados e salve as alterações."
+    botaoSalvar.textContent = "Salvar alterações"
+    botaoLimpar.textContent = "Cancelar edição"
+    mensagem.className = "alert d-none"
+    formulario.scrollIntoView({ behavior: "smooth", block: "center" })
+    document.querySelector("#nome").focus({ preventScroll: true })
 }
 
-// Usada somente neste arquivo, por isso não precisa de export.
+function voltarAoCadastro(){
+    produtoEmEdicao = null
+    delete formulario.dataset.modo
+    titulo.textContent = "Cadastrar produto"
+    subtitulo.textContent = "Preencha os dados para cadastrar um novo produto."
+    botaoSalvar.textContent = "Cadastrar produto"
+    botaoLimpar.textContent = "Limpar"
+}
+
+formulario.addEventListener("reset", (evento) => {
+    if (botaoSalvar.disabled){
+        evento.preventDefault()
+        return
+    }
+    voltarAoCadastro()
+    mensagem.className = "alert d-none"
+})
+
+formulario.addEventListener("submit", async (evento) => {
+    if (formulario.dataset.modo !== "editar") return
+    evento.preventDefault()
+    if (botaoSalvar.disabled || !formulario.reportValidity()) return
+
+    const produto = {
+        ...produtoEmEdicao,
+        nome: document.querySelector("#nome").value.trim(),
+        categoria: document.querySelector("#categoria").value,
+        preco: Number(document.querySelector("#preco").value),
+        estoque: Number(document.querySelector("#estoque").value),
+        descricao: document.querySelector("#descricao").value.trim()
+    }
+
+    if (!produto.nome || !Number.isFinite(produto.preco) || produto.preco < 0 ||
+        !Number.isInteger(produto.estoque) || produto.estoque < 0){
+        mensagem.className = "alert alert-danger"
+        mensagem.textContent = "Informe nome, preço válido e estoque inteiro não negativo."
+        return
+    }
+
+    botaoSalvar.disabled = true
+    botaoLimpar.disabled = true
+    mensagem.className = "alert d-none"
+
+    try {
+        await atualizarProduto(produto.id, produto)
+        // O reset é liberado somente após terminar o PUT.
+        botaoSalvar.disabled = false
+        formulario.reset()
+        mensagem.className = "alert alert-success"
+        mensagem.textContent = "Produto atualizado com sucesso!"
+        await atualizarListaAposCadastro()
+    } catch (erro){
+        mensagem.className = "alert alert-danger"
+        mensagem.textContent = "Não foi possível atualizar. Verifique o JSON Server."
+    } finally {
+        botaoSalvar.disabled = false
+        botaoLimpar.disabled = false
+    }
+})
+
 async function atualizarProduto(id, produto){
     const response = await fetch(
         `http://localhost:3000/produtos/${encodeURIComponent(id)}`,
         {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(produto)
         }
     )
-
-    if (!response.ok){
-        throw new Error("Erro ao atualizar produto")
-    }
+    if (!response.ok) throw new Error("Erro ao atualizar produto")
 }
