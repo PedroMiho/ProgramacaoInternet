@@ -29,3 +29,5 @@ Os botões de editar e excluir permanecem como parte da interface para aulas fut
 - `js/api.js`: requisição GET para busca e paginação.
 - `js/consultasAPI.js`: exibição dos produtos e atualização da lista.
 - `js/cadastroProduto.js`: método POST, leitura do formulário e mensagens de cadastro.
+
+Todo o cadastro fica em `cadastroProduto.js`: validação, leitura dos campos, função POST e tratamento do envio. `cadastrarProduto()` não usa `export`, pois é chamada nesse mesmo arquivo. A listagem permanece separada em `consultasAPI.js`; somente `atualizarListaAposCadastro()` é exportada e importada pelo cadastro para atualizar a tabela após o POST.
