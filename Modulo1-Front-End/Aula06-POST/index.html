@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Tech Store - Gerenciamento de produtos">
+
+    <title>Tech Store | Produtos</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="header">
+
+        <div class="container header-content">
+
+            <a href="#" class="logo">
+
+                <span class="logo-icon">
+                    T
+                </span>
+
+                <span>
+                    Tech<span>Store</span>
+                </span>
+
+            </a>
+
+
+            <span class="header-title">
+                Painel de Produtos
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+
+    <main class="main">
+
+        <div class="container">
+
+
+            <!-- =========================
+                 CABEÇALHO
+            ========================== -->
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        GERENCIAMENTO
+                    </span>
+
+                    <h1>
+                        Produtos
+                    </h1>
+
+                    <p>
+                        Cadastre, consulte, altere e exclua
+                        produtos da sua loja.
+                    </p>
+
+                </div>
+
+
+                <!-- <button type="button" class="button button-primary">
+
+                    <span>
+                        +
+                    </span>
+
+                    Novo Produto
+
+                </button> -->
+
+            </section>
+
+
+
+            <!-- =========================
+                 ÁREA DE MENSAGENS
+            ========================== -->
+
+            <!--
+                Esta área será utilizada posteriormente
+                pelo JavaScript para apresentar mensagens
+                de sucesso ou erro.
+            -->
+<!-- 
+            <div class="alert alert-success hidden" role="alert">
+
+                <span class="alert-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Operação realizada com sucesso!
+                </span>
+
+            </div> -->
+
+
+
+            <!-- =========================
+                 ESTATÍSTICAS
+            ========================== -->
+
+            <section class="stats">
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        📦
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Total de produtos
+                        </span>
+
+                        <strong class="stat-value">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        🏷️
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Categorias
+                        </span>
+
+                        <strong class="stat-value">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        💰
+                    </div>
+
+                    <div>
+
+                        <span class="stat-label">
+                            Valor médio
+                        </span>
+
+                        <strong class="stat-value">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 LISTAGEM DE PRODUTOS
+            ========================== -->
+
+            <section class="products-section">
+
+
+                <!-- TOOLBAR -->
+
+                <div class="toolbar">
+
+
+                    <div>
+
+                        <h2>
+                            Lista de produtos
+                        </h2>
+
+                        <p>
+                            Produtos cadastrados na loja
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="search">
+
+                        <label for="search" class="sr-only">
+                            Buscar produto
+                        </label>
+
+
+                        <span class="search-icon">
+                            🔍
+                        </span>
+
+
+                        <input type="search" id="search" placeholder="Buscar produto...">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- TABELA -->
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Produto
+                                </th>
+
+                                <th>
+                                    Categoria
+                                </th>
+
+                                <th>
+                                    Preço
+                                </th>
+
+                                <th>
+                                    Estoque
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th class="actions-column">
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="mostrarProdutos">
+
+                            <tr class="empty-state">
+
+                                <td colspan="6" id="verificaProduto">
+                                    <div class="empty-content" >
+                                        <div class="empty-icon">
+                                            📦
+                                        </div>
+                                        <h3>
+                                            Nenhum produto cadastrado
+                                        </h3>
+                                        <p>
+                                            Cadastre seu primeiro produto
+                                            utilizando o formulário abaixo.
+                                        </p>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- PAGINAÇÃO -->
+
+                <div class="pagination">
+
+
+                    
+                    <div class="pagination-buttons">
+
+
+                        <button id="anterior" type="button"  aria-label="Página anterior">
+                            ←
+                        </button>
+
+
+                        <button id="paginaAtual" type="button" disabled>
+                            1
+                        </button>
+
+
+                        <button id="proxima" type="button" aria-label="Próxima página">
+                            →
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =========================
+                 FORMULÁRIO
+            ========================== -->
+
+            <section class="form-section">
+
+
+                <!-- CABEÇALHO DO FORMULÁRIO -->
+
+                <div class="form-header">
+
+
+                    <div>
+
+                        <span class="section-label">
+                            CRUD
+                        </span>
+
+
+                        <h2>
+                            Cadastrar produto
+                        </h2>
+
+
+                        <p>
+                            Preencha os dados para cadastrar
+                            um novo produto.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- FORMULÁRIO -->
+
+                <div id="mensagemCadastro" class="alert d-none" role="status" aria-live="polite"></div>
+
+                <form class="product-form">
+
+
+                    <div class="form-grid">
+
+
+                        <!-- NOME -->
+
+                        <div class="form-group form-group-large">
+
+
+                            <label for="nome">
+                                Nome do produto
+                            </label>
+
+
+                            <input type="text" id="nome" name="nome" required placeholder="Ex.: Notebook Pro">
+
+
+                        </div>
+
+
+
+                        <!-- CATEGORIA -->
+
+                        <div class="form-group">
+
+
+                            <label for="categoria">
+                                Categoria
+                            </label>
+
+
+                            <select id="categoria" name="categoria" required>
+
+                                <option value="">
+                                    Selecione uma categoria
+                                </option>
+
+                                <option value="computadores">
+                                    Computadores
+                                </option>
+
+                                <option value="perifericos">
+                                    Periféricos
+                                </option>
+
+                                <option value="audio">
+                                    Áudio
+                                </option>
+
+                                <option value="gamer">
+                                    Gamer
+                                </option>
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <!-- PREÇO -->
+
+                        <div class="form-group">
+
+
+                            <label for="preco">
+                                Preço
+                            </label>
+
+
+                            <input type="number" id="preco" name="preco" required placeholder="0,00" min="0" step="0.01">
+
+
+                        </div>
+
+
+
+                        <!-- ESTOQUE -->
+
+                        <div class="form-group">
+
+
+                            <label for="estoque">
+                                Estoque
+                            </label>
+
+
+                            <input type="number" id="estoque" name="estoque" required step="1" placeholder="Quantidade" min="0">
+
+
+                        </div>
+
+
+
+                        <!-- DESCRIÇÃO -->
+
+                        <div class="form-group form-group-full">
+
+
+                            <label for="descricao">
+                                Descrição
+                            </label>
+
+
+                            <textarea id="descricao" name="descricao" rows="5"
+                                placeholder="Descreva o produto..."></textarea>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- BOTÕES -->
+
+                    <div class="form-actions">
+
+
+                        <button type="reset" class="button button-secondary">
+                            Limpar
+                        </button>
+
+
+                        <button type="submit" class="button button-primary">
+                            Cadastrar produto
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+        </div>
+
+    </main>
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+
+        <div class="container footer-content">
+
+
+            <p>
+                © 2026 Tech Store
+            </p>
+
+
+            <p>
+                Projeto educacional — Programação para Internet
+            </p>
+
+
+        </div>
+
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    
+    <script type="module" src="js/consultasAPI.js"></script>
+</body>
+
+
+</html>
