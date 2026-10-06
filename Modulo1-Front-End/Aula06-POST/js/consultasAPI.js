@@ -1,4 +1,5 @@
 import api from "./api.js"
+import { excluirProduto } from "./excluirProduto.js"
 
 let paginaAtual = 1
 let produtosPorPagina = 5
@@ -116,7 +117,18 @@ function listarProdutos(produtos){
         botaoExcluir.textContent = "Excluir"
         
         botaoExcluir.addEventListener("click" , async () => {
-            await excluirProduto(produto.id)
+            if (botaoExcluir.disabled) return
+            botaoExcluir.disabled = true
+
+            try {
+                const excluiu = await excluirProduto(produto.id)
+                if (excluiu){
+                    // Mantém a busca e volta à primeira página.
+                    await consulta.mostrarProdutos(1)
+                }
+            } finally {
+                botaoExcluir.disabled = false
+            }
         })
 
         tdAcoes.appendChild(botaoEditar)
