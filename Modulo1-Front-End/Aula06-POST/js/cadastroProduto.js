@@ -23,6 +23,7 @@ const botaoCadastrar = formulario.querySelector('button[type="submit"]')
 const mensagemCadastro = document.querySelector("#mensagemCadastro")
 
 formulario.addEventListener("submit", async (evento) => {
+    if (evento.defaultPrevented || formulario.dataset.modo === "editar") return
     evento.preventDefault()
     if (botaoCadastrar.disabled || !formulario.reportValidity()) return
 
