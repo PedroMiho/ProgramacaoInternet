@@ -17,23 +17,6 @@ const api = {
         }
 
         return await response.json()
-    },
-
-    // Envia os dados do formulário para cadastrar um novo produto.
-    async cadastrarProduto(produto){
-        const response = await fetch("http://localhost:3000/produtos", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(produto)
-        })
-
-        if (!response.ok){
-            throw new Error("Erro ao cadastrar produto")
-        }
-
-        return await response.json()
     }
 }
 

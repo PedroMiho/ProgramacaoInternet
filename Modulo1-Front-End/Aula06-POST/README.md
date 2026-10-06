@@ -14,7 +14,7 @@ Esta aula continua a Aula 05, mantendo a busca por nome e a paginação.
 - O evento `submit` captura o envio do formulário.
 - `preventDefault()` evita que a página seja recarregada.
 - Os campos formam um objeto JavaScript; preço e estoque são convertidos em números.
-- `api.cadastrarProduto(produto)` envia uma requisição `POST /produtos`.
+- `cadastrarProduto(produto)`, em `js/cadastroProduto.js`, envia uma requisição `POST /produtos`.
 - `Content-Type: application/json` informa o formato dos dados.
 - `JSON.stringify(produto)` transforma o objeto em JSON.
 - O JSON Server gera o ID e grava o produto em `back-end/db.json`.
@@ -23,3 +23,9 @@ Esta aula continua a Aula 05, mantendo a busca por nome e a paginação.
 Nome, categoria, preço e estoque são obrigatórios. Descrição é opcional. O botão fica desabilitado enquanto o cadastro está em andamento.
 
 Os botões de editar e excluir permanecem como parte da interface para aulas futuras.
+
+## Organização dos arquivos
+
+- `js/api.js`: requisição GET para busca e paginação.
+- `js/consultasAPI.js`: exibição dos produtos e atualização da lista.
+- `js/cadastroProduto.js`: método POST, leitura do formulário e mensagens de cadastro.
