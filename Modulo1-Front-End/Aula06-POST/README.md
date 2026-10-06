@@ -22,7 +22,7 @@ Esta aula continua a Aula 05, mantendo a busca por nome e a paginação.
 
 Nome, categoria, preço e estoque são obrigatórios. Descrição é opcional. O botão fica desabilitado enquanto o cadastro está em andamento.
 
-Os botões de editar e excluir permanecem como parte da interface para aulas futuras.
+O botão Excluir solicita confirmação e envia DELETE. O botão Editar permanece para uma aula futura.
 
 ## Organização dos arquivos
 
@@ -31,3 +31,11 @@ Os botões de editar e excluir permanecem como parte da interface para aulas fut
 - `js/cadastroProduto.js`: método POST, leitura do formulário e mensagens de cadastro.
 
 Todo o cadastro fica em `cadastroProduto.js`: validação, leitura dos campos, função POST e tratamento do envio. `cadastrarProduto()` não usa `export`, pois é chamada nesse mesmo arquivo. A listagem permanece separada em `consultasAPI.js`; somente `atualizarListaAposCadastro()` é exportada e importada pelo cadastro para atualizar a tabela após o POST.
+
+## Exclusão com DELETE
+
+- `js/excluirProduto.js`: confirmação, requisição `DELETE /produtos/{id}` e mensagens.
+- `consultasAPI.js` importa a função e conecta o botão Excluir ao ID do produto.
+- Após excluir, a tabela volta à primeira página mantendo a busca. Isso evita ficar em uma última página que deixou de existir.
+- Durante a operação, o botão fica desabilitado. Ao cancelar ou ocorrer erro, a listagem não é atualizada.
+- Não é necessário adicionar outra tag script ao HTML: o módulo é carregado pelo import.
