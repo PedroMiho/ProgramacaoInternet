@@ -1,37 +1,4 @@
 {
-  "produtos": [
-    {
-      "id": "1",
-      "nome": "notebook",
-      "categoria": "computadores",
-      "preco": 3499.99,
-      "estoque": 12,
-      "descricao": "notebook de estudos"
-    },
-    {
-      "nome": "Notebook",
-      "categoria": "computadores",
-      "preco": 1000,
-      "estoque": 10,
-      "descricao": ".",
-      "id": "vHJbQwl9OQk"
-    },
-    {
-      "nome": "Notebook",
-      "categoria": "perifericos",
-      "preco": 1000,
-      "estoque": 10,
-      "descricao": "",
-      "id": "DIGT2xsxWT0"
-    },
-    {
-      "nome": "Notebook",
-      "categoria": "perifericos",
-      "preco": 1000,
-      "estoque": 10,
-      "descricao": "",
-      "id": "7QG5WCBh0MQ"
-    }
-  ],
+  "produtos": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

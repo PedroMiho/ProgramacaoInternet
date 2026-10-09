@@ -1,5 +1,4 @@
 import api from "./api.js"
-import { editarProduto } from "./atualizarProduto.js"
 import { excluirProduto } from "./excluirProduto.js"
 
 let paginaAtual = 1
@@ -233,3 +232,4 @@ export async function atualizarListaAposEdicao() {
 
 // Carrega os produtos e os cards ao abrir a página.
 consulta.mostrarProdutos()
+
